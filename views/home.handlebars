@@ -1,0 +1,33 @@
+<section class='container-fluid customer-table mt-3'>
+  <div class='table-header d-flex justify-content-between align-items-center'>
+    <p class='lead'>Customers</p>
+    <a href='/customers/add' class='btn btn-outline-primary'>Add new</a>
+  </div>
+  <div class='table-responsive'>
+    <table class='table'>
+      <thead>
+        <tr>
+          <th scope='col'>#</th>
+          <th scope='col'>Name</th>
+          <th scope='col'>Email</th>
+          <th scope='col'>Phone</th>
+          <th scope='col'>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each users}}
+          <tr>
+            <th scope='row'>{{id}}</th>
+            <td>{{name}}</td>
+            <td>{{email}}</td>
+            <td>{{phone}}</td>
+            <td class='d-flex'>
+              <a href='/customers/{{id}}/update' class='btn btn-outline-info me-2'>Edit</a>
+              <a href='/customers/{{id}}/remove' class='btn btn-outline-danger me-2'>Delete</a>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</section>
