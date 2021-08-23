@@ -7,7 +7,13 @@
 
 // Dependencies
 const express = require('express');
+const mongoose = require('mongoose');
+const customerSchema = require('../schemas/customerSchema');
 const { getUsersInfo } = require('../utils/utils');
+
+// Compile a model
+const name = process.env.NODE_ENV === 'test' ? 'test-customer' : 'customer';
+const Customer = mongoose.model(name, customerSchema);
 
 // Router object
 const router = express.Router();
@@ -42,4 +48,4 @@ router.get('/search/', async (req, res) => {
   res.sendStatus(200);
 });
 
-module.exports = router;
+module.exports = { router, Customer };

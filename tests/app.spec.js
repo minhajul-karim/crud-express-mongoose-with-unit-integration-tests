@@ -10,12 +10,30 @@
 // Dependencies
 const supertest = require('supertest');
 const app = require('../app');
+const { Customer } = require('../routes/customers');
 
 const request = supertest(app);
 
 describe('Test /customers routes', () => {
   // Clear db and run migrations
-  beforeAll(() => null);
+  beforeAll(async () => {
+    await Customer.insertMany([
+      {
+        name: 'Minhajul Karim',
+        email: 'mkr@gmail.com',
+        phone: '01711092062',
+      },
+      {
+        name: 'Iffat Jahan',
+        email: 'iffat@gmail.com',
+        phone: '01675013172',
+      },
+    ], (err) => {
+      if (err) {
+        console.log(err);
+      }
+    });
+  });
 
   // Test suite for testing the index route
   describe('index route', () => {

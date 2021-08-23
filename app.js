@@ -9,21 +9,17 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
-const customerRouter = require('./routes/customers');
+const { router: CustomerRouter } = require('./routes/customers');
 
 // App object
 const app = express();
 
 // Database connection with mongoose
-const db = process.env.NODE_ENV === 'test' ? 'customers-test' : 'customers';
+const db = process.env.NODE_ENV === 'test' ? 'test-customers' : 'customers';
 mongoose.connect(`mongodb://localhost:27017/${db}`, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-  .then(() => {
-    // TODO: IS IT NECESSARY?
-    console.log('Connection successful');
-  })
   .catch((err) => {
     console.log(err);
   });
@@ -41,7 +37,7 @@ app.get('/', (req, res) => {
 app.use(express.urlencoded({ extended: true }));
 
 // Application routes
-app.use('/customers', customerRouter);
+app.use('/customers', CustomerRouter);
 
 // Error handler middleware
 function errorHandler(err, req, res, next) {
