@@ -2,7 +2,7 @@
  * Title: Test search
  * Description: Test suites for the search functionality
  * Author: Minhajul Karim
- * Date: 15 Aug 2021
+ * Date: 23 Aug 2021
  */
 
 /* global describe, beforeAll, afterAll, test, expect */

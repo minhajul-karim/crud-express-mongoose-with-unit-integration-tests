@@ -3,7 +3,7 @@
  * Description: A collection of functions those help to accomplish
  * various operations easier accross the application
  * Author: Minhajul Karim
- * Date: 9 Aug 2021
+ * Date: 23 Aug 2021
  */
 
 /*
