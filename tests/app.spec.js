@@ -36,7 +36,7 @@ describe('Test /customers routes', () => {
   });
 
   // Test suite for testing the index route
-  describe('index route', () => {
+  describe.only('index route', () => {
     test('should respond with 200 for GET request', async () => {
       const response = await request.get('/');
       expect(response.status).toBe(200);

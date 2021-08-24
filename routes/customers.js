@@ -10,6 +10,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const customerSchema = require('../schemas/customerSchema');
 const { getUsersInfo } = require('../utils/utils');
+const { errorHandler } = require('../helpers/helpers');
 
 // Compile a model
 const name = process.env.NODE_ENV === 'test' ? 'test-customer' : 'customer';
@@ -19,8 +20,14 @@ const Customer = mongoose.model(name, customerSchema);
 const router = express.Router();
 
 // Display details of all users
-router.get('/', async (req, res) => {
-  res.sendStatus(200);
+router.get('/', async (req, res, next) => {
+  try {
+    const customers = await Customer.find({});
+    console.log(customers);
+    res.sendStatus(200);
+  } catch (err) {
+     next(err);
+  }
 });
 
 // Show add new customer form
@@ -47,5 +54,7 @@ router.get('/:userId/remove', async (req, res) => {
 router.get('/search/', async (req, res) => {
   res.sendStatus(200);
 });
+
+router.use(errorHandler);
 
 module.exports = { router, Customer };

@@ -13,7 +13,7 @@ const app = require('../app');
 
 const request = supertest(app);
 
-describe('Test search feature', () => {
+describe.skip('Test search feature', () => {
   beforeAll(() => null);
 
   describe('/customers/search/q?=___', () => {
