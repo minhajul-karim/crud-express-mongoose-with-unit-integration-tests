@@ -5,35 +5,33 @@
  * Date: 23 Aug 2021
  */
 
+/* globals describe, test, expect */
+
 // Dependencies
-const { getUsersInfo } = require('./utils');
+const { getCustomersInfo } = require('./utils');
 
 // Test suite for testing utils functions
 describe('Test utils functions', () => {
   test('getUserInfo returns an array of user objects', () => {
     const arrayOfUserObjs = [
       {
-        id: 7,
+        _id: 7,
         name: 'John Doe',
         email: 'johndoe@ex.com',
         phone: '01711091062',
-        createdAt: '',
-        updatedAt: '',
       },
       {
-        id: 8,
+        _id: 8,
         name: 'Steve Almas',
         email: 'stevealmas@bee.com',
         phone: '01779898372',
-        createdAt: '',
-        updatedAt: '',
       },
     ];
 
-    const usersInfo = getUsersInfo(arrayOfUserObjs);
+    const usersInfo = getCustomersInfo(arrayOfUserObjs);
     expect(usersInfo.length).toBe(2);
     expect(usersInfo[0]).toMatchObject({
-      id: 7,
+      _id: 7,
       name: 'John Doe',
       email: 'johndoe@ex.com',
       phone: '01711091062',

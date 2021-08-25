@@ -9,7 +9,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const customerSchema = require('../schemas/customerSchema');
-const { getUsersInfo } = require('../utils/utils');
+const { getCustomersInfo } = require('../utils/utils');
 const { errorHandler } = require('../helpers/helpers');
 
 // Compile a model
@@ -22,9 +22,12 @@ const router = express.Router();
 // Display details of all users
 router.get('/', async (req, res, next) => {
   try {
-    const customers = await Customer.find({});
-    console.log(customers);
-    res.sendStatus(200);
+    // Get all users from db
+    const result = await Customer.find({});
+    // Copy desired properties from prototype of objects received from db
+    const customers = getCustomersInfo(result);
+    // Render homepage
+    res.render('home', { customers });
   } catch (err) {
      next(err);
   }

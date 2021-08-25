@@ -7,16 +7,17 @@
  */
 
 /*
- * The default users objects returned from db is not displayable to view engine.
+ * The default users objects returned from db contains our desired properties inside prototype
+ * that is not displayable to handlebars by default.
  * This function maps the array of user objects and extract the required properties
- * those can be consumed by the view engine.
+ * those can be consumed by the handlebars.
  */
 
-function getUsersInfo(users) {
+function getCustomersInfo(users) {
   return users.map((userObj) => {
-    const { id, name, phone, email } = userObj;
+    const { _id, name, phone, email } = userObj;
     return {
-      id,
+      _id,
       name,
       phone,
       email,
@@ -24,4 +25,4 @@ function getUsersInfo(users) {
   });
 }
 
-module.exports = { getUsersInfo };
+module.exports = { getCustomersInfo };
