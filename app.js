@@ -23,7 +23,7 @@ app.set('view engine', 'handlebars');
 
 // Index route
 app.get('/', (req, res) => {
-  res.sendStatus(200);
+  res.redirect('/customers');
 });
 
 // Settings to parse body of a POST request

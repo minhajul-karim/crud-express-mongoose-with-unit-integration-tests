@@ -13,7 +13,8 @@
     "linebreak-style": 0,
     "object-curly-newline": ["error", { "multiline": true }],
     "no-undef": "error",
-    "no-unused-vars": "warn"
+    "no-unused-vars": "warn",
+    "no-underscore-dangle": "off"
   },
   "plugins": ["prettier"]
 }
