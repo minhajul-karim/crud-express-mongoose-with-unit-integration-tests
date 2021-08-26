@@ -18,22 +18,22 @@ const request = supertest(app);
 describe('Test /customers routes', () => {
   // Clear collections and create new customers
   beforeAll(async () => {
-    await Customer.insertMany([
-      {
-        name: 'Minhajul Karim',
-        email: 'mkr@gmail.com',
-        phone: '01711092062',
-      },
-      {
-        name: 'Iffat Jahan',
-        email: 'iffat@gmail.com',
-        phone: '01675013172',
-      },
-    ], (err) => {
-      if (err) {
-        console.log(err);
-      }
-    });
+    try {
+      await Customer.insertMany([
+        {
+          name: 'Minhajul Karim',
+          email: 'mkr@gmail.com',
+          phone: '01711092062',
+        },
+        {
+          name: 'Iffat Jahan',
+          email: 'iffat@gmail.com',
+          phone: '01675013172',
+        },
+      ]);
+    } catch (err) {
+      console.log(err);
+    }
   });
 
   // Test suite for testing the index route

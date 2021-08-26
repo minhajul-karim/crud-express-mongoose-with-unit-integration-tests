@@ -23,7 +23,7 @@ const router = express.Router();
 router.get('/', async (req, res, next) => {
   try {
     // Get all users from db
-    const result = await Customer.find({});
+    const result = await Customer.find({}).exec();
     // Copy desired properties from prototype of objects received from db
     const customers = getCustomersInfo(result);
     // Render homepage
@@ -62,6 +62,8 @@ router.post('/add', async (req, res, next) => {
     } else {
       // Create new customer
       try {
+        // Delete _id field form the form as we want mongoose to generate ids
+        delete (req.body._id);
         await Customer.create(req.body);
         res.redirect('/customers');
       } catch (err) {
@@ -102,7 +104,7 @@ router.get('/:customerId/update', async (req, res, next) => {
 router.get('/:customerId/remove', async (req, res, next) => {
   const { customerId } = req.params;
   try {
-    await Customer.findOneAndDelete({ _id: customerId });
+    await Customer.findOneAndDelete({ _id: customerId }).exec();
     res.render('deleted');
   } catch (err) {
     next(err);
