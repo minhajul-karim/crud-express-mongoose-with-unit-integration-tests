@@ -16,8 +16,18 @@ const { Customer } = require('../routes/customers');
 const request = supertest(app);
 
 describe('Test /customers routes', () => {
-  // Clear collections and create new customers
   beforeAll(async () => {
+    // Establish database connection
+    const db = process.env.NODE_ENV === 'test' ? 'test-customers' : 'customers';
+    try {
+      await mongoose.connect(`mongodb://localhost:27017/${db}`, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      });
+    } catch (err) {
+        console.log(err);
+    }
+    // Seed database
     try {
       await Customer.insertMany([
         {
