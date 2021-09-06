@@ -5,7 +5,7 @@
  * Date: 23 Aug 2021
  */
 
-/* global describe, beforeAll, afterAll, test, expect */
+/* global describe, beforeAll, beforeEach, afterAll, test, expect, jest */
 
 // Dependencies
 const mongoose = require('mongoose');
@@ -44,6 +44,10 @@ describe('Test /customers routes', () => {
     } catch (err) {
       console.log(err);
     }
+  });
+
+  beforeEach(() => {
+    jest.setTimeout(90 * 1000);
   });
 
   // Test suite for testing the index route
