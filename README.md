@@ -1,3 +1,5 @@
+[![Run tests](https://github.com/minhajul-karim/crud-express-mongoose-with-unit-integration-tests/actions/workflows/node.js.yml/badge.svg)](https://github.com/minhajul-karim/crud-express-mongoose-with-unit-integration-tests/actions/workflows/node.js.yml)
+
 # Introduction
 
 A CRUD implementation using Mongoose in Express. Unit tests and integration tests are written using Jest.
