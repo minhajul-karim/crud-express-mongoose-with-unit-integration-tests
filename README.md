@@ -6,11 +6,11 @@ A CRUD implementation using Mongoose in Express. Unit tests and integration test
 
 ## Built With
 
-- [Bootstrap v5.0](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
 - [Express](https://expressjs.com/)
-- [Jest](https://jestjs.io/)
-- [SQLite](https://www.sqlite.org/index.html)
 - [Mongoose](https://mongoosejs.com/)
+- [Bootstrap v5.0](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
+- [Jest](https://jestjs.io/)
+
 
 ## Getting Started
 
