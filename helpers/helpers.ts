@@ -14,10 +14,7 @@ const db = process.env.NODE_ENV === 'test' ? 'test-customers' : 'customers';
 
 export const connectToMongodb = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    await mongoose.connect(`mongodb://localhost:27017/${db}`, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(`mongodb://localhost:27017/${db}`);
     next();
   } catch (err) {
     next(err);
