@@ -8,10 +8,11 @@
 /* global describe, beforeAll, beforeEach, afterAll, test, expect, jest */
 
 // Dependencies
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import app from '../app';
+import { Customer } from '../routes/customers';
+
 const supertest = require('supertest');
-const app = require('../app');
-const { Customer } = require('../routes/customers');
 
 const request = supertest(app);
 
