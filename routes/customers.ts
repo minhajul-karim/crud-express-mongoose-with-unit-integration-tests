@@ -2,15 +2,15 @@
  * Title: Router object for /customers path
  * Description: This router object will be used for all paths following /customers
  * Author: Minhajul Karim
- * Date: 4 Aug 2021
+ * Date: 24 Jan 2025
  */
 
 // Dependencies
-const express = require('express');
-const mongoose = require('mongoose');
-const customerSchema = require('../schemas/customerSchema');
-const { getCustomersInfo } = require('../utils/utils');
-const { errorHandler } = require('../helpers/helpers');
+import express from "express";
+import mongoose from "mongoose";
+import { customerSchema } from "../schemas/customerSchema";
+import { getCustomersInfo } from "../utils/utils";
+import { errorHandler } from "../helpers/helpers";
 
 // Compile a model
 const collectionName = process.env.NODE_ENV === 'test' ? 'test-customer' : 'customer';
@@ -41,7 +41,7 @@ router.get('/add', (req, res) => {
 // Create new user
 router.post('/add', async (req, res, next) => {
   const { _id, name, email, phone } = req.body;
-  const errorMsgs = [];
+  const errorMsgs: {message: string}[] = [];
   if (!name) errorMsgs.push({ message: 'Please provie your name' });
   if (!email) errorMsgs.push({ message: 'Please provie your email' });
   if (!phone) errorMsgs.push({ message: 'Please provie your phone number' });
@@ -87,7 +87,8 @@ router.get('/:customerId/update', async (req, res, next) => {
   const { customerId } = req.params;
   // Find the user with userId
   try {
-    const customer = await Customer.findById(customerId).exec();
+    // TODO: WHAT WILL BE THE TYPE OF customer?
+    const customer: any = await Customer.findById(customerId).exec();
     const { _id, name, email, phone } = customer;
     res.render('add', {
       _id,
@@ -116,7 +117,7 @@ router.get('/search/', async (req, res, next) => {
   // Extract the query parameters
   const { q } = req.query;
   // Generate a case insensitive regular expressionn
-  const expression = new RegExp(q, 'i');
+  const expression = new RegExp(q as string, 'i');
   try {
     // Find all fileds that contain query parameters
     const result = await Customer.find({

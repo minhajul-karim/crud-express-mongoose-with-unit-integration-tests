@@ -2,12 +2,12 @@
  * Title: Customers Schema
  * Description: Defines the schema for each customer
  * Author: Minhajul Karim
- * Date: 23 Aug 2021
+ * Date: 24 Jan 2025
  */
 
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const customerSchema = new mongoose.Schema({
+export const customerSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -21,5 +21,3 @@ const customerSchema = new mongoose.Schema({
     required: true,
   },
 });
-
-module.exports = customerSchema;

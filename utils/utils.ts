@@ -3,7 +3,7 @@
  * Description: A collection of functions those help to accomplish
  * various operations easier accross the application
  * Author: Minhajul Karim
- * Date: 23 Aug 2021
+ * Date: 24 Jan 2025
  */
 
 /*
@@ -13,7 +13,14 @@
  * those can be consumed by the handlebars.
  */
 
-function getCustomersInfo(users) {
+interface User {
+  _id: string;
+  name: string;
+  phone: string;
+  email: string;
+}
+
+export const getCustomersInfo = (users: User[]) => {
   return users.map((userObj) => {
     const { _id, name, phone, email } = userObj;
     return {
@@ -23,6 +30,4 @@ function getCustomersInfo(users) {
       email,
     };
   });
-}
-
-module.exports = { getCustomersInfo };
+};
