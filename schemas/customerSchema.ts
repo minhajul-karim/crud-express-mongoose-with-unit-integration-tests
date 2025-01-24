@@ -5,9 +5,9 @@
  * Date: 24 Jan 2025
  */
 
-import mongoose from 'mongoose';
+import { Schema } from 'mongoose';
 
-export const customerSchema = new mongoose.Schema({
+export const customerSchema = new Schema({
   name: {
     type: String,
     required: true,

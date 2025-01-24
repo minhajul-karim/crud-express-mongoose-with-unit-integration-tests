@@ -14,10 +14,10 @@ import { errorHandler } from "../helpers/helpers";
 
 // Compile a model
 const collectionName = process.env.NODE_ENV === 'test' ? 'test-customer' : 'customer';
-const Customer = mongoose.model(collectionName, customerSchema);
+export const Customer = mongoose.model(collectionName, customerSchema);
 
 // Router object
-const router = express.Router();
+export const router = express.Router();
 
 // Display details of all users
 router.get('/', async (req, res, next) => {
@@ -87,8 +87,7 @@ router.get('/:customerId/update', async (req, res, next) => {
   const { customerId } = req.params;
   // Find the user with userId
   try {
-    // TODO: WHAT WILL BE THE TYPE OF customer?
-    const customer: any = await Customer.findById(customerId).exec();
+    const customer = await Customer.findById(customerId).exec();
     const { _id, name, email, phone } = customer;
     res.render('add', {
       _id,
@@ -138,4 +137,4 @@ router.get('/search/', async (req, res, next) => {
 
 router.use(errorHandler);
 
-module.exports = { router, Customer };
+// module.exports = { router, Customer };
