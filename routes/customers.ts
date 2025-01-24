@@ -6,15 +6,16 @@
  */
 
 // Dependencies
-import express from "express";
-import mongoose from "mongoose";
-import { customerSchema } from "../schemas/customerSchema";
-import { getCustomersInfo } from "../utils/utils";
-import { errorHandler } from "../helpers/helpers";
+import express from 'express';
+import mongoose from 'mongoose';
+import { customerSchema } from '../schemas/customerSchema';
+import { getCustomersInfo } from '../utils/utils';
+import { errorHandler } from '../helpers/helpers';
+import { Customer as ICustomer } from '../helpers/types';
 
 // Compile a model
 const collectionName = process.env.NODE_ENV === 'test' ? 'test-customer' : 'customer';
-export const Customer = mongoose.model(collectionName, customerSchema);
+export const Customer = mongoose.model<ICustomer>(collectionName, customerSchema);
 
 // Router object
 export const router = express.Router();
@@ -29,7 +30,7 @@ router.get('/', async (req, res, next) => {
     // Render homepage
     res.render('home', { customers });
   } catch (err) {
-     next(err);
+    next(err);
   }
 });
 
@@ -41,7 +42,7 @@ router.get('/add', (req, res) => {
 // Create new user
 router.post('/add', async (req, res, next) => {
   const { _id, name, email, phone } = req.body;
-  const errorMsgs: {message: string}[] = [];
+  const errorMsgs: { message: string }[] = [];
   if (!name) errorMsgs.push({ message: 'Please provie your name' });
   if (!email) errorMsgs.push({ message: 'Please provie your email' });
   if (!phone) errorMsgs.push({ message: 'Please provie your phone number' });
@@ -50,11 +51,15 @@ router.post('/add', async (req, res, next) => {
     if (_id) {
       // Find and update customer information having _id
       try {
-        await Customer.findByIdAndUpdate(_id, {
-          name,
-          email,
-          phone,
-        }, { useFindAndModify: false }).exec();
+        await Customer.findByIdAndUpdate(
+          _id,
+          {
+            name,
+            email,
+            phone,
+          },
+          { useFindAndModify: false }
+        ).exec();
         res.redirect('/customers');
       } catch (err) {
         next(err);
@@ -63,7 +68,7 @@ router.post('/add', async (req, res, next) => {
       // Create new customer
       try {
         // Delete _id field form the form as we want mongoose to generate ids
-        delete (req.body._id);
+        delete req.body._id;
         await Customer.create(req.body);
         res.redirect('/customers');
       } catch (err) {
@@ -88,12 +93,11 @@ router.get('/:customerId/update', async (req, res, next) => {
   // Find the user with userId
   try {
     const customer = await Customer.findById(customerId).exec();
-    const { _id, name, email, phone } = customer;
     res.render('add', {
-      _id,
-      name,
-      email,
-      phone,
+      _id: customer?._id,
+      name: customer?.name,
+      email: customer?.email,
+      phone: customer?.phone,
     });
   } catch (err) {
     next(err);
@@ -120,12 +124,8 @@ router.get('/search/', async (req, res, next) => {
   try {
     // Find all fileds that contain query parameters
     const result = await Customer.find({
-      $or: [
-          { name: expression },
-          { email: expression },
-          { phone: expression },
-        ],
-      }).exec();
+      $or: [{ name: expression }, { email: expression }, { phone: expression }],
+    }).exec();
     // Copy desired properties from prototype of objects received from db
     const customers = getCustomersInfo(result);
     // Render results

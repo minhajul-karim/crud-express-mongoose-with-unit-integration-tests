@@ -6,8 +6,9 @@
  */
 
 import { Schema } from 'mongoose';
+import { Customer } from '../helpers/types';
 
-export const customerSchema = new Schema({
+export const customerSchema = new Schema<Customer>({
   name: {
     type: String,
     required: true,

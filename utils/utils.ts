@@ -6,6 +6,8 @@
  * Date: 24 Jan 2025
  */
 
+import { Customer } from '../helpers/types';
+
 /*
  * The default users objects returned from db contains our desired properties inside prototype
  * that is not displayable to handlebars by default.
@@ -13,16 +15,9 @@
  * those can be consumed by the handlebars.
  */
 
-interface User {
-  _id: string;
-  name: string;
-  phone: string;
-  email: string;
-}
-
-export const getCustomersInfo = (users: User[]) => {
-  return users.map((userObj) => {
-    const { _id, name, phone, email } = userObj;
+export const getCustomersInfo = (customers: Customer[]) => {
+  return customers.map((customer) => {
+    const { _id, name, phone, email } = customer;
     return {
       _id,
       name,
