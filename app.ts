@@ -2,11 +2,11 @@
  * Title: Project Initial File
  * Description: Initial file to start the application
  * Author: Minhajul Karim
- * Date: 23 Aug 2021
+ * Date: 23 Jan 2025
  */
 
 // Dependencies
-const express = require('express');
+import express from 'express';
 const exphbs = require('express-handlebars');
 const { router: CustomerRouter } = require('./routes/customers');
 const { connectToMongodb, errorHandler } = require('./helpers/helpers');
@@ -35,4 +35,5 @@ app.use('/customers', CustomerRouter);
 // Error handler middleware
 app.use(errorHandler);
 
-module.exports = app;
+// module.exports = app;
+export default app;
