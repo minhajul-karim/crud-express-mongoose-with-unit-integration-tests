@@ -3,8 +3,10 @@
  * Description: A collection of functions those help to accomplish
  * various operations easier accross the application
  * Author: Minhajul Karim
- * Date: 23 Aug 2021
+ * Date: 24 Jan 2025
  */
+
+import { Customer } from '../helpers/types';
 
 /*
  * The default users objects returned from db contains our desired properties inside prototype
@@ -13,9 +15,9 @@
  * those can be consumed by the handlebars.
  */
 
-function getCustomersInfo(users) {
-  return users.map((userObj) => {
-    const { _id, name, phone, email } = userObj;
+export const getCustomersInfo = (customers: Customer[]) => {
+  return customers.map((customer) => {
+    const { _id, name, phone, email } = customer;
     return {
       _id,
       name,
@@ -23,6 +25,4 @@ function getCustomersInfo(users) {
       email,
     };
   });
-}
-
-module.exports = { getCustomersInfo };
+};
