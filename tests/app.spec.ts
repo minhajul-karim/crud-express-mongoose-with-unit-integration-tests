@@ -21,10 +21,7 @@ describe('Test /customers routes', () => {
     // Establish database connection
     const db = process.env.NODE_ENV === 'test' ? 'test-customers' : 'customers';
     try {
-      await mongoose.connect(`mongodb://localhost:27017/${db}`, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      });
+      await mongoose.connect(`mongodb://localhost:27017/${db}`);
     } catch (err) {
         console.log(err);
     }
@@ -109,10 +106,10 @@ describe('Test /customers routes', () => {
     });
 
     test('should update user info if user already exists without creating new instances', async () => {
-      const { _id } = await Customer.findOne({ phone: '123' }).exec();
+      const customer = await Customer.findOne({ phone: '123' }).exec();
       const response = await request
         .post('/customers/add')
-        .send(`_id=${_id}&name=Chris Nolan&email=chris-nolan@gmail.com&phone=999`);
+        .send(`_id=${customer?._id}&name=Chris Nolan&email=chris-nolan@gmail.com&phone=999`);
       const customers = await Customer.find({});
       expect(customers.length).toBe(3);
       expect(response.status).toBe(302);
@@ -122,8 +119,8 @@ describe('Test /customers routes', () => {
   // Test suite for testing /customers/:userId/update route
   describe('/customers/customerId/update', () => {
     test('should return status render the form with pre-filled form data', async () => {
-      const { _id } = await Customer.findOne({ phone: '01711092062' }).exec();
-      const response = await request.get(`/customers/${_id}/update`);
+      const customer = await Customer.findOne({ phone: '01711092062' }).exec();
+      const response = await request.get(`/customers/${customer?._id}/update`);
       expect(response.status).toBe(200);
       expect(response.headers['content-type']).toMatch(/html/);
     });
@@ -132,8 +129,8 @@ describe('Test /customers routes', () => {
   // Test suite for testing /customer/:userId/remove route
   describe('/customers/customerId/remove', () => {
     test('should display <p class=\'lead text-center\'>User deleted</p>', async () => {
-      const { _id } = await Customer.findOne({ phone: '01711092062' }).exec();
-      const response = await request.get(`/customers/${_id}/remove`);
+      const customer = await Customer.findOne({ phone: '01711092062' }).exec();
+      const response = await request.get(`/customers/${customer?._id}/remove`);
       expect(response.text).toMatch(/<p class='text-center lead'>User deleted<\/p>/);
     });
   });
